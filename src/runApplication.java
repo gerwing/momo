@@ -15,7 +15,7 @@ public class runApplication {
 	public static void main(String[] args) {
 		JSONFactory.createJSONFromDatabase();
 		try {
-			new MomoJettyServer(8900);
+			new MomoJettyServer(8900); //this is cool
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
