@@ -1,0 +1,198 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Manager</title>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+<link rel="stylesheet" type="text/css" href="lib/build/mediaelementplayer.min.css">
+<link rel="stylesheet" type="text/css" href="css/ui.dynatree.css">
+<link rel="stylesheet" type="text/css" href="css/manager.css">
+
+<script src="scripts/jquery-1.7.2.min.js"></script>
+<script src='scripts/knockout-2.1.0.js'></script>
+<script src="scripts/knockout.mapping-latest.js"></script>
+<script src="lib/build/mediaelement-and-player.min.js"></script>
+<script src="scripts/jquery.tools.min.js"></script>
+<script src="scripts/jquery-ui.custom.min.js"></script>
+<script src="scripts/jquery.cookie.js"></script>
+<script src="scripts/jquery.dynatree.min.js"></script>
+<!--own scripts-->
+<script src="scripts/manager.js"></script>
+</head>
+<body>
+	<header>
+    	<nav id="appselect"><a href="/index.html"><h4>player</h4></a></nav>
+        <div id="title"><h2>manager</h2></div>
+    	<nav id="confselect"><h4 rel="#conf">configure</h4></nav>
+    </header>
+        <div id=left>
+            <h5>VIEW</h5>
+            <nav>
+                <p id=artistSortBtn onClick="sortByArtist()">Artist</p>
+                <p id=albumSortBtn onClick="sortByAlbum()">Album</p>
+                <p id=songSortBtn onClick="sortBySong()">Song</p>
+            </nav>
+            <h5>COLLECTION</h5>
+            <nav>
+                <p id=allmusicViewBtn onClick="changeCollection('all')">All Music</p>
+                <p id=identifiedViewBtn onClick="changeCollection('identified')">Identified</p>
+                <p id=unidentifiedViewBtn onClick="changeCollection('unidentified')">Unidentified</p>
+                <p id=nocoverViewBtn onClick="changeCollection('nocover')">Without Cover</p>
+            </nav>
+        </div>
+        <div id=middle>
+        	<!--Artist Sort View-->
+            <ul id="byartist" data-bind='foreach: list'>
+                <li>
+                    <h4 data-bind='text: name'></h4>
+                    <table id=mainTable data-bind='foreach: albums'>
+                        <tr>
+                            <td id=firstRow><img data-bind='attr: {src:cover_filepath}' /></td>
+                            <td id=secondRow>
+                            	<span data-bind='text: title'></span><br><br>
+                            	<button rel="#editalbum" data-bind='event:{mousedown:editingAlbum}'>edit album</button><br>
+                                <button rel="#editcover" data-bind='event:{mousedown:editingCover.bind($data, $parent)}'>edit cover</button>
+                            </td>
+                            <td id=thirdRow>
+                                <table id=songTable data-bind='foreach:songs'>
+                                    <tr data-bind='click:playSong.bind($data)'>
+                                        <td id=trackNumber><span data-bind='text:tracknumber'></span></td>
+                                        <td id=songTitle><span data-bind='text:title'></span></td>
+                                        <td id=songLength><span data-bind='text:length'></span></td>
+                                        <td id=artistName><span data-bind='text:artist'></span></td>
+                                    </tr>
+                                </table>
+                        	</td>
+                         </tr>
+                    </table>
+                 </li>
+            </ul>
+            <!--Album Sort View-->
+            <ul id="byalbum" data-bind='foreach: list'><br/>
+                <li><hr>
+                    <table id=mainTable>
+                        <tr>
+                            <td id=firstRow><img data-bind='attr: {src:cover_filepath}' /></td>
+                            <td id=secondRow><span data-bind='text: title'></span><br/>
+                            				  <strong><span data-bind='text: albumArtist'></span></strong><br><br>
+                                              <button rel='#editalbum' data-bind='event:{mousedown:editingAlbum}'>edit album</button><br>
+                                              <button rel='#editcover' data-bind='event:{mousedown:editingCover.bind($data, $parent)}'>edit cover</button>
+                            </td>
+                            <td id=thirdRow >
+                                <table id=songTable data-bind='foreach:songs'>
+                                    <tr data-bind='click:playSong.bind($data)'>
+                                        <td id=trackNumber><span data-bind='text:tracknumber'></span></td>
+                                        <td id=songTitle><span data-bind='text:title'></span></td>
+                                        <td id=songLength><span data-bind='text:length'></span></td>
+                                        <td id=artistName><span data-bind='text:artist'></span></td>
+                                    </tr>
+                                </table>
+                        	</td>
+                        </tr>
+                    </table>
+                </li>
+            </ul>
+            <!--Song Sort View-->
+            <ul id="bysong" >
+                <li>
+                    <table id=songTable data-bind='foreach: list'>
+                        <tr data-bind='click:playSong.bind($data)'>
+                        	<td id=songTitle><a data-bind='click:playSong.bind($data)'><span data-bind='text:title'></span></a></td>
+                            <td id=songLength><span data-bind='text: length'></span></td>
+                            <td id=artistName><span data-bind='text: artist'></span></td>
+                            <td id=albumName><span data-bind='text: album'></span></td>              
+                       </tr>
+                    </table>
+                </li>
+            </ul>
+        </div>
+        <div id=right>
+            	<h5>SEARCH</h5>
+            <div id=search>
+                <input type="search" placeholder="Search…" data-bind="value: query, valueUpdate: 'keyup'" autocomplete="off">
+            </div>
+        </div>
+    <footer><div id=player>
+    			<audio id="audioPlayer" controls>
+    				<source src=".mp3" type="audio/mp3">
+    			</audio>
+            </div>
+    </footer>
+    <!-- Configuration Overlay-->
+    <div class="overlay" id="conf"> 
+    	<h3>Configuration</h3><hr>
+        <p>Add Folders</p>
+        <div id="folderTree"></div><br>
+        <button onClick="addFolder()">Add Folder</button>
+        <p>Configured Folders</p>
+        <div class=conf_frame>
+        	<form data-bind='foreach: folders' id="folderForm">
+            	<input type="radio" data-bind='value:folder' />
+                <span data-bind="text:folder"></span><br>
+            </form>
+        </div>
+       	<button onClick="removeFolders()">Remove Folder</button> 
+        <span id="removeLoad">removing folder...<img src="resources/loading/ajax-loader.gif"></span>
+        <p>Configure Collection</p>
+        <div class=conf_frame_small>
+        	<input id=showunidentifiedcbx type="checkbox" data-bind='checked:showUnIdentified' onChange="editShowUnIdentified()"/>
+            add unidentified music to collection
+        </div><hr>
+        <button onClick="indexFolders()" 
+        	title="Rescan all folders for new files, delete files in the collection that were removed from the folders">Scan Folders</button>		
+         <span id="indexLoad">scanning...<img src="resources/loading/ajax-loader.gif"></span></br>
+        <button onClick="startReset()" title="Reset the entire collection, removing all files from database">Reset Collection</button>		
+         <span id="resetLoad">resetting...<img src="resources/loading/ajax-loader.gif"></span>
+    </div>
+    <div id=resetConfirm>
+        <h5>Are you sure ?</h5><hr>
+        <p>Resetting the collection will remove all the music in your collection. Are you sure you want to continue ?</p>
+        <button class=btnRight onClick="resetCollection()">yes</button><button class=btnLeft onClick="stopReset()">no</button>
+    </div>
+    <!-- Edit Album Overlay-->
+    <div class="overlay" id="editalbum"> 
+    	<h3>Edit Album</h3><hr>
+        <table id=editTable>     
+        	<tr>
+                <td class=firstRow></td>
+                <td class=secondRow >
+                    <table>
+                        <tr>
+                            <td class=trackNumber><strong>nr</strong></td>
+                            <td class=songTitle><strong>song title</strong></td>
+                            <td class=artistName><strong>artist</strong></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td class=firstRow>
+                	<img data-bind='attr: {src:cover_filepath}' />
+                    <h4>Album: </h4><input data-bind='value:title'>
+                    <h4>Artist: </h4><input data-bind='value:albumArtist'>
+                    <h4>Year: </h4><input data-bind='value:year'>
+                    <h4>Total Tracks: </h4><input data-bind='value:no_oftracks'>
+                    <h4>Disc Number: </h4><input data-bind='value:disc_no'><br><br>
+                    <input type="checkbox" data-bind='checked:compilation'>compilation
+                </td>
+                <td class=secondRow >
+                    <table data-bind='foreach:songs'>
+                        <tr>
+                            <td class=trackNumber><input data-bind='value:tracknumber'></td>
+                            <td class=songTitle><input data-bind='value:title'></td>
+                            <td class=artistName><input data-bind='value:artist'></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+         </table>
+        <button data-bind='click:editAlbum.bind($data)'>save changes</button>
+        <span class="loading">saving...<img src="resources/loading/ajax-loader.gif"></span>
+    </div>
+     <!-- Edit Cover Overlay-->
+    <div class="overlay" id="editcover"> 
+        <!-- generated by JS-->
+        <div id=editcoverJS></div>
+    </div>
+</body>
+</html>

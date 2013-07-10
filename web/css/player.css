@@ -1,0 +1,88 @@
+@charset "UTF-8";
+/* CSS Document */
+header {
+	background: rgba(0, 0, 0, 1);
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(50,50,50,1)), to(rgba(0,0,0,1)));
+	background: -webkit-linear-gradient(top, rgba(40,40,40,1), rgba(0,0,0,1)); 
+	background: -moz-linear-gradient(top, rgba(40,40,40,1), rgba(0,0,0,1));
+	background: -o-linear-gradient(top, rgba(40,40,40,1), rgba(0,0,0,1)); 
+	background: -ms-linear-gradient(top, rgba(40,40,40,1), rgba(0,0,0,1)); 	
+	background: linear-gradient(rgba(40,40,40,1), rgba(0,0,0,1));
+}
+header #title {
+	color:#999;
+}
+#right p {
+	color: rgb(72,79,91);
+	margin:5px;
+	text-overflow: ellipsis;
+  	-o-text-overflow: ellipsis;
+  	-webkit-text-overflow: ellipsis; 
+	font-size: small;
+	padding-left: 20px;
+}
+#currentImg {
+	margin-top: 5px;
+	margin-left: 20px;
+	width: 80px;
+	height: 80px;
+	border-width:thin;
+	border-style: solid;
+	border-color:rgba(180,180,180,1);
+	-moz-box-shadow: 0px 0px 5px #888;
+	-webkit-box-shadow: 0px 0px 5px #888;
+	box-shadow: 0px 0px 5px #888;
+}
+#current {
+	display:none;
+}
+#current button {
+	margin-left: 20px;
+}
+#next {
+	display: none;
+	margin-bottom: 20px;
+	bottom: 0px;
+	position: absolute;
+}
+#nextBtn {
+	z-index: 3;
+	bottom:5px;
+	left: 50%;
+	margin-left: -196px;
+	position: fixed;
+	width: 17px;
+	height: 12px;
+}
+#prevBtn {
+	z-index: 5;
+	bottom:5px;
+	left: 50%;
+	margin-left: -238px;
+	position: fixed;
+	width: 17px;
+	height: 12px;
+}
+#prevBtn:hover, #nextBtn:hover, #currentBtns:hover, #shuffle:hover {
+	cursor:pointer;
+	cursor:hand;
+}
+#currentBtns {
+	margin-left:25px;
+}
+#currentBtns img{
+	width: 16px;
+	height: 14px;
+}
+#currentNextBtn {
+	margin-left: 10px;
+}
+#shuffle {
+	color:#999;
+	font-size: 12px;
+	bottom: 4px;
+	z-index: 1001;
+	left: 50%;
+	margin-left: 206px;
+	position: fixed;
+}

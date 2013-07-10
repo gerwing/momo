@@ -1,0 +1,247 @@
+@charset "UTF-8";
+/* CSS Document */
+body {
+	font-family:Arial, Helvetica, sans-serif;
+	color: rgba(25,25,30,1);
+	margin: 0px;
+}
+header {
+	top:0px;
+	position: fixed;
+	width:100%;
+	height: 40px;
+	z-index:1;
+}
+header #appselect {
+ 	position: absolute;
+	left: 20px;
+	top: 10px;
+}
+header nav h4{
+	margin:0px;
+	padding:0px;
+	color:#999;
+	font-size:0.8em;
+}
+header nav h4:hover{
+	color:#666;
+	cursor:pointer;
+	cursor:hand;
+}
+header a {
+	text-decoration: none;
+}
+header #title {
+	position: absolute;
+	width: 100px;
+	left: 50%;
+	margin-left: -50px;
+	text-align:center;
+}
+header #title h2 {
+	margin-top: 4px;
+}
+#left {
+	top: 40px;
+	bottom: 26px;
+	left: 0px;
+	position: fixed;
+	width: 16%;
+	border-width:thin;
+	border-right-style: solid;
+	border-color:rgba(190,190,220,1);
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(230,230,240,0.8)), to(rgba(210,210,220,1)));
+	background: -webkit-linear-gradient(top, rgba(230,230,240,0.8), rgba(210,210,220,1)); 
+	background: -moz-linear-gradient(top, rgba(230,230,240,0.8), rgba(210,210,220,1));
+	background: -o-linear-gradient(top, rgba(230,230,240,0.8), rgba(210,210,220,1)); 
+	background: -ms-linear-gradient(top, rgba(230,230,240,0.8), rgba(210,210,220,1)); 	
+	background: linear-gradient(rgba(230,230,240,0.8), rgba(210,210,220,1));
+}
+#middle {
+	font-size: 0.7em;
+	top: 40px;
+	margin-bottom: 90px;
+	left: 16%;
+	position: relative;
+	width: 68%;
+	z-index: 0;
+}
+#middle h4 {
+	border-bottom: thin;
+	border-color: rgba(190,190,220,1);
+	border-bottom-style: solid;
+	margin-bottom: 2px;
+}
+#middle img {
+	width: 100px;
+	height: 100px;
+	border-width:thin;
+	border-style: solid;
+	border-color:rgba(180,180,180,1);
+	-moz-box-shadow: 0px 0px 5px #888;
+	-webkit-box-shadow: 0px 0px 5px #888;
+	box-shadow: 0px 0px 5px #888;
+}
+#right {
+	top:40px;
+	bottom:26px;
+	right:0px;
+	position: fixed;
+	width: 16%;
+	border-width:thin;
+	border-left-style: solid;
+	border-color:rgba(190,190,220,1);
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(230,230,240,0.8)), to(rgba(210,210,220,1)));
+	background: -webkit-linear-gradient(top, rgba(230,230,240,0.8), rgba(210,210,220,1)); 
+	background: -moz-linear-gradient(top, rgba(230,230,240,0.8), rgba(210,210,220,1));
+	background: -o-linear-gradient(top, rgba(230,230,240,0.8), rgba(210,210,220,1)); 
+	background: -ms-linear-gradient(top, rgba(230,230,240,0.8), rgba(210,210,220,1)); 	
+	background: linear-gradient(rgba(230,230,240,0.8), rgba(210,210,220,1));
+}
+#right input{ 
+	width:100%;
+}
+#right #search {
+	margin: 20px;
+	margin-top:0px;
+}
+#left h5, #right h5{
+	font-size:11px;
+	padding-left:20px;
+	margin-bottom: 5px;
+}
+footer {
+	bottom:0px;
+	position: fixed;
+	width:100%;
+	height: 26px;
+	background: rgba(0, 0, 0, 1);
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(35,35,35,1)), to(rgba(0,0,0,1)));
+	background: -webkit-linear-gradient(top, rgba(35,35,35,1), rgba(0,0,0,1)); 
+	background: -moz-linear-gradient(top, rgba(35,35,35,1), rgba(0,0,0,1));
+	background: -o-linear-gradient(top, rgba(35,35,35,1), rgba(0,0,0,1)); 
+	background: -ms-linear-gradient(top, rgba(35,35,35,1), rgba(0,0,0,1)); 	
+	background: linear-gradient(rgba(35,35,35,1), rgba(0,0,0,1)); 
+	z-index:2;
+}
+nav p{
+	border: 1px solid rgba(255,255,255,0);
+	border-left:none;
+	border-right: none;
+	color: rgb(72,79,91);
+	font-size: small;
+	padding-left:25px;
+	margin:0px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+nav p:hover {
+	color: #222;
+	cursor:pointer;
+	cursor:hand;
+}
+table tr {
+	vertical-align: top;
+}
+ul {
+	list-style:none;
+}
+#middle ul {
+	padding-left:20px;
+	padding-right:20px;	
+	margin:0px;
+}
+#mainTable {
+	width:100%;
+}
+#firstRow {
+	width:100px;
+}
+#secondRow {
+	padding-left: 6px;
+}
+#thirdRow {
+	width:70%;
+}
+#thirdRow table {
+	margin-top:-2px;
+}	
+#songTable {
+	width: 100%;
+	border-collapse:collapse;
+	table-layout:fixed;
+}
+#songTable td {
+	border: 1px solid rgba(190,190,220,0.2);
+	border-left: none;
+	border-right: none;
+	border-top: none;
+	padding: 3px;
+	padding-left:6px;
+	text-overflow: ellipsis;
+  	-o-text-overflow: ellipsis;
+  	-webkit-text-overflow: ellipsis;
+  	white-space: nowrap;
+  	overflow: hidden;
+}
+#songTable tr {
+	vertical-align: middle;
+}
+#songTable tr:hover {
+	background-color:rgba(0,102,204,0.1);
+	cursor:pointer;
+	cursor:hand;
+}
+#trackNumber {
+	width:5%;
+	text-align:right;
+}
+#songTitle {
+	width:55%;
+}
+#songLength {
+	width:8%;
+	text-align: right;
+}
+#artistName {
+	width:32%;	
+}
+#byartist #mainTable {
+	border-collapse: seperate;
+	border-spacing: 0px 10px;
+}
+#byartist li {
+	margin-bottom: -14px;
+}
+#bysong #songTitle {
+	width: 40%;
+}
+#bysong #songLength {
+	width: 6%;
+}
+#bysong #artistName {
+	width: 27%;
+}
+#bysong #albumName {
+	width: 27%;
+}
+#bysong {
+	padding-top: 10px;
+}
+#player {
+	margin-left:-200px;
+	left: 50%;
+	position: relative;
+}
+.btnSelected {
+	border: 1px solid rgb(184,198,223);
+	border-left:none;
+	border-right: none;
+	
+	background: rgb(184,198,223); /* Old browsers */
+	background: -moz-linear-gradient(top, rgba(184,198,223,1) 0%, rgba(109,136,183,1) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(184,198,223,1)), color-stop(100%,rgba(109,136,183,1))); /* 	Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, rgba(184,198,223,0.5) 0%,rgba(109,136,183,0.5) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, rgba(184,198,223,0.5) 0%,rgba(109,136,183,0.5) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, rgba(184,198,223,0.5) 0%,rgba(109,136,183,0.5) 100%); /* IE10+ */
+}

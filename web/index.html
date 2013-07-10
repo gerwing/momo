@@ -1,0 +1,132 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Player</title>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+<link rel="stylesheet" type="text/css" href="lib/build/mediaelementplayer.css">
+<link rel="stylesheet" type="text/css" href="css/ui.dynatree.css">
+<link rel="stylesheet" type="text/css" href="css/player.css">
+
+<script src="scripts/jquery-1.7.2.min.js"></script>
+<script src='scripts/knockout-2.1.0.js'></script>
+<script src="scripts/knockout.mapping-latest.js"></script>
+<script src="lib/build/mediaelement-and-player.min.js"></script>
+<script src="scripts/jquery.tools.min.js"></script>
+<script src="scripts/jquery-ui.custom.min.js"></script>
+<script src="scripts/jquery.cookie.js"></script>
+<script src="scripts/jquery.dynatree.min.js"></script>
+<!--own scripts-->
+<script src="scripts/player.js"></script>
+</head>
+<body>
+	<header>
+    	<div id="title"><h2>player</h2></div>
+    	<nav id="appselect"><a href="/manage.html"><h4>manager</h4></a></nav>
+    </header>
+        <div id=left>
+            <h5>VIEW</h5>
+            <nav>
+                <p id=artistSortBtn onClick="sortByArtist()">Artist</p>
+                <p id=albumSortBtn onClick="sortByAlbum()">Album</p>
+                <p id=songSortBtn onClick="sortBySong()">Song</p>
+            </nav>
+            <h5>COLLECTION</h5>
+            <nav>
+                <p id=allmusicViewBtn onClick="changeCollection('all')">All Music</p>
+                <p id=compViewBtn onClick="changeCollection('comp')">Compilations</p>
+            </nav>
+        </div>
+        <div id=middle>
+        	<!--Artist Sort View-->
+            <ul id="byartist" data-bind='foreach: list'>
+                <li>
+                    <h4 data-bind='text: name'></h4>
+                    <table id=mainTable data-bind='foreach: albums'>
+                        <tr>
+                            <td id=firstRow><img data-bind='attr: {src:cover_filepath}' /></td>
+                            <td id=secondRow><span data-bind='text: title'></span></td>
+                            <td id=thirdRow>
+                                <table id=songTable data-bind='foreach:songs'>
+                                    <tr data-bind='click:playSong.bind($data, $parent)'>
+                                        <td id=trackNumber><span data-bind='text:tracknumber'></span></td>
+                                        <td id=songTitle><span data-bind='text:title'></span></td>
+                                        <td id=songLength><span data-bind='text:length'></span></td>
+                                        <td id=artistName><span data-bind='text:artist'></span></td>
+                                    </tr>
+                                </table>
+                        	</td>
+                         </tr>
+                    </table>
+                 </li>
+            </ul>
+            <!--Album Sort View-->
+            <ul id="byalbum" data-bind='foreach: list'><br/>
+                <li><hr>
+                    <table id=mainTable>
+                        <tr>
+                            <td id=firstRow><img data-bind='attr: {src:cover_filepath}' /></td>
+                            <td id=secondRow><span data-bind='text: title'></span><br/>
+                            					<strong><span data-bind='text: albumArtist'></span></strong></td>
+                            <td id=thirdRow >
+                                <table id=songTable data-bind='foreach:songs'>
+                                    <tr data-bind='click:playSong.bind($data, $parent)'>
+                                        <td id=trackNumber><span data-bind='text:tracknumber'></span></td>
+                                        <td id=songTitle><span data-bind='text:title'></span></td>
+                                        <td id=songLength><span data-bind='text:length'></span></td>
+                                        <td id=artistName><span data-bind='text:artist'></span></td>
+                                    </tr>
+                                </table>
+                        	</td>
+                        </tr>
+                    </table>
+                </li>
+            </ul>
+            <!--Song Sort View-->
+            <ul id="bysong">
+                <li>
+                    <table id=songTable data-bind='foreach: list'>
+                        <tr data-bind='click:playSong.bind($data, $parent)'>
+                        	<td id=songTitle><span data-bind='text:title'></span></td>
+                            <td id=songLength><span data-bind='text: length'></span></td>
+                            <td id=artistName><span data-bind='text: artist'></span></td>
+                            <td id=albumName><span data-bind='text: album'></span></td>              
+                       </tr>
+                    </table>
+                </li>
+            </ul>
+        </div>
+        <div id=right>
+            <h5>SEARCH</h5>
+            <div id=search>
+                <input type="search" placeholder="Search…" data-bind="value: query, valueUpdate: 'keyup'" autocomplete="off">			
+            </div>
+            <div id=current>
+                <h5 class=currentTitle>CURRENT SONG</h5>
+                <img id=currentImg src="">
+                <strong><p id=currentArtist></p></strong>
+                <p id=currentSong></p>
+                <span id=currentBtns>
+                	<img id=currentPrevBtn onClick="playPrevious()" src="resources/buttons/prev.png">
+                	<img id=currentNextBtn onClick="playNext()" src="resources/buttons/next.png">
+                </span>
+            </div>
+            <div id=next>
+                <h5 class=currentTitle>NEXT SONG</h5>
+                <strong><p id=nextArtist></p></strong>
+                <p id=nextSong></p>
+            </div>
+        </div>
+     <!--extra controls-->   
+    <img onClick="playPrevious()" id=prevBtn src="resources/buttons/back.png">
+    <img onClick="playNext()" id=nextBtn src="resources/buttons/forward.png">
+    <span id="shuffle" onClick="toggleShuffle()">shuffle off</span>
+    <footer>
+        <div id=player>
+            <audio id="audioPlayer" controls>
+                <source src=".mp3" type="audio/mp3">
+            </audio>
+        </div>
+    </footer>
+</body>
+</html>

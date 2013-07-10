@@ -1,0 +1,211 @@
+@charset "UTF-8";
+/* CSS Document */
+header {
+	background: rgb(96,108,136); /* Old browsers */
+	background: -moz-linear-gradient(top,  rgba(96,108,136,1) 0%, rgba(63,76,107,1) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(96,108,136,1)), color-stop(100%,rgba(63,76,107,1))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  rgba(96,108,136,1) 0%,rgba(63,76,107,1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  rgba(96,108,136,1) 0%,rgba(63,76,107,1) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  rgba(96,108,136,1) 0%,rgba(63,76,107,1) 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  rgba(96,108,136,1) 0%,rgba(63,76,107,1) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#606c88', endColorstr='#3f4c6b',GradientType=0 ); /* IE6-9 */
+}
+header nav h4 {
+	color: rgb(176,188,216);
+}
+header nav h4:hover {
+	color: rgb(126,138,166);
+}
+header #confselect {
+ 	position: absolute;
+	right: 20px;
+	top: 10px;
+}
+header #title {
+	color: rgb(176,188,216);
+}
+.overlay {
+	/* must be initially hidden */
+    display:none;
+ 
+    /* place overlay on top of other elements */
+    z-index:10;
+	
+	padding:15px;
+	
+	color:#FFF;
+	font-size:small;
+ 
+    /* styling */
+    background-color:rgba(30,30,40,0.9);
+ 
+    width:675px;
+    min-height:200px;
+	 border:1px solid #444;
+ 
+    /* CSS3 styling for latest browsers */
+    -moz-border-radius:10px;
+    -webkit-border-radius:10px;
+     -moz-box-shadow:0 0 20px 5px #ccc;
+    -webkit-box-shadow: 0 0 20px #ccc;
+}
+/* close button positioned on upper right corner */
+.overlay .close {
+    background-image:url(../resources/overlay/close.png);
+    position:absolute;
+    right:-15px;
+    top:-15px;
+    cursor:pointer;
+    height:35px;
+    width:35px;
+}
+.conf_frame {
+	color:#333;
+	vertical-align:central;
+	-moz-border-radius:10px;
+    -webkit-border-radius:10px;
+	background-color:rgba(220,220,230,0.7);
+	left:0px;
+	right:0px;
+	height: 100px;
+	overflow:auto;
+	padding: 10px;
+	margin-bottom:6px;
+	border: 1px solid rgba(20,20,30,1);
+}
+.conf_frame_small {
+	color:#333;
+	vertical-align:central;
+	-moz-border-radius:10px;
+    -webkit-border-radius:10px;
+	background-color:rgba(220,220,230,0.7);
+	left:0px;
+	right:0px;
+	height: 20px;
+	overflow:auto;
+	padding: 10px;
+	margin-bottom:6px;
+	border: 1px solid rgba(20,20,30,1);
+}
+#folderTree {
+	color:#333;
+	height:150px;
+}
+#editalbum img {
+	width: 100px;
+	height: 100px;
+	border-width:thin;
+	border-style: solid;
+	border-color:rgba(180,180,180,1);
+	-moz-box-shadow: 0px 0px 5px #888;
+	-webkit-box-shadow: 0px 0px 5px #888;
+	box-shadow: 0px 0px 5px #888;
+}
+#editTable {
+	width:100%;
+}
+#editTable .firstRow {
+	width:20%;
+}
+#editTable .firstRow input {
+	width:auto;
+}
+#editTable .firstRow h4 {
+	margin:4px;
+}
+#editTable .secondRow {
+	width:80%;
+}
+#editTable .secondRow table {
+	margin-top:-2px;
+}
+#editTable .secondRow table td {
+	padding-left:6px;	
+}
+#editTable .trackNumber {
+	min-width:20px;
+	text-align:right;
+}
+#editTable .songTitle {
+	width:60%;	
+}
+#editTable .artistName {
+	width:40%;	
+}
+#editTable input {
+	width: 100%;
+	background-color: rgba(255,255,255,0.7);
+}
+#smallEditTable input {
+	background-color: rgba(255,255,255,0.7);
+}
+#editcover img {
+	margin: 10px;
+	width: 100px;
+	height: 100px;
+	border-width:thin;
+	border-style: solid;
+	border-color:rgba(180,180,180,1);
+	-moz-box-shadow: 0px 0px 5px #888;
+	-webkit-box-shadow: 0px 0px 5px #888;
+	box-shadow: 0px 0px 5px #888;
+}
+#editcover input {
+	margin-left:10px;
+}
+#editalbum .loading img, #editcover .loading img {
+	width: 16px;
+	height: 16px;
+	border-width:0px;
+	border-style: none;
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}
+.loading {
+	display: none;
+}
+#resetLoad {
+	display: none;
+}
+#removeLoad {
+	display: none;
+}
+#indexLoad {
+	display: none;
+}
+#resetConfirm {
+	/* must be initially hidden */
+    display: none;
+ 
+    /* place overlay on top of other elements */
+    z-index:10000;
+	
+	padding:15px;
+	
+	color:#666;
+	font-size:small;
+ 
+    /* styling */
+    background-color:rgba(250,250,250,1);
+ 
+    width:250px;
+    height:120px;
+	border:1px solid #444;
+	
+	position:fixed;
+	left: 50%;
+	top:50%;
+	margin-left: -125px;
+	margin-top: -60px;
+ 
+    /* CSS3 styling for latest browsers */
+    -moz-border-radius:10px;
+    -webkit-border-radius:10px;
+}
+#resetConfirm h5 {
+	margin: 0px;
+}
+
+
+
