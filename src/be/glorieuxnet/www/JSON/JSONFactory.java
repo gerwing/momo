@@ -22,7 +22,7 @@ import com.google.gson.Gson;
  */
 public class JSONFactory {
 	
-	private final static String JSONPATH = "resources" + File.separator;
+	private final static String JSONPATH = "web" + File.separator + "resources" + File.separator + "json" + File.separator;
 	private static CollectionDAO collection = new CollectionDAO();
 	private static ManagementDAO mgmCollection = new ManagementDAO();
 	

@@ -29,7 +29,7 @@ $(document).ready(function(){
         mediaElement.addEventListener('ended', playNext, false);
     }});
 		
-   $.getJSON('/CollectionService?action=allartists', function(data) {
+   $.getJSON('/resources/json/AllArtists.json', function(data) {
 	   allMusic_views[0] = data.list;
 	   artists = data.list;
 	   viewModel_artist = ko.mapping.fromJS(data);
@@ -63,14 +63,14 @@ $(document).ready(function(){
    ko.applyBindings(query, $("#right")[0]);
    
    //set Album viewmodel
-   $.getJSON('/CollectionService?action=allalbums', function(data) {
+   $.getJSON('/resources/json/AllAlbums.json', function(data) {
 	   allMusic_views[1] = data.list;
 	   albums = data.list;
 	   viewModel_album = ko.mapping.fromJS({list:[]});
 	   ko.applyBindings(viewModel_album, $("#byalbum")[0]);
     });
    //set Song viewmodel
-   $.getJSON('/CollectionService?action=allsongs', function(data) {
+   $.getJSON('/resources/json/AllSongs.json', function(data) {
 	   allMusic_views[2] = data.list;
 	   songs = data.list;
 	   viewModel_song = ko.mapping.fromJS({list:[]});
@@ -309,7 +309,7 @@ function changeCollection(coll) {
 	else if (coll == "comp" && currentView != "comp") {
 		currentView = "comp";
 		if(comp_views.length == 0) {
-			$.getJSON('/CollectionService?action=compartists', function(data) {
+			$.getJSON('/resources/json/CompArtists.json', function(data) {
 		    	comp_views[0] = data.list;
 				artists = data.list;
 				if(artistSort) {
@@ -317,7 +317,7 @@ function changeCollection(coll) {
 					sortByArtist();
 				}
 		    }); 
-			$.getJSON('/CollectionService?action=compalbums', function(data) {
+			$.getJSON('/resources/json/CompAlbums.json', function(data) {
 		    	comp_views[1] = data.list;
 				albums = data.list;
 				if(albumSort) {
@@ -325,7 +325,7 @@ function changeCollection(coll) {
 					sortByAlbum();
 				}
 		    });  
-			$.getJSON('/CollectionService?action=compsongs', function(data) {
+			$.getJSON('/resources/json/CompSongs.json', function(data) {
 		    	comp_views[2] = data.list;
 				songs = data.list;
 				if(songSort) {

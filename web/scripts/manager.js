@@ -28,7 +28,7 @@ var editCoverAlbumID; //ID of album when editing cover
 	
 	player = new MediaElementPlayer('#audioPlayer');
 		
-   $.getJSON('/CollectionService?action=allartists', function(data) {
+   $.getJSON('/resources/json/AllArtists.json', function(data) {
 	   allMusic_views[0] = data.list;
 	   artists = data.list;
 	   viewModel_artist = ko.mapping.fromJS(data);
@@ -45,14 +45,14 @@ var editCoverAlbumID; //ID of album when editing cover
    $("#allmusicViewBtn").addClass("btnSelected");
    
    //set Album viewmodel
-   $.getJSON('/CollectionService?action=allalbums', function(data) {
+   $.getJSON('/resources/json/AllAlbums.json', function(data) {
 	   allMusic_views[1] = data.list;
 	   albums = data.list;
 	   viewModel_album = ko.mapping.fromJS({list:[]});
 	   ko.applyBindings(viewModel_album, $("#byalbum")[0]);
     });
    //set Song viewmodel
-   $.getJSON('/CollectionService?action=allsongs', function(data) {
+   $.getJSON('/resources/json/AllSongs.json', function(data) {
 	   allMusic_views[2] = data.list;
 	   songs = data.list;
 	   viewModel_song = ko.mapping.fromJS({list:[]});
@@ -277,7 +277,7 @@ function changeCollection(coll) {
   	if(coll == "all" && currentView != "all") {
 		currentView = "all";
 		if(allMusic_views.length == 0) {
-			$.getJSON('/CollectionService?action=allartists', function(data) {
+			$.getJSON('/resources/json/AllArtists.json', function(data) {
 		    	allMusic_views[0] = data.list;
 		    	artists = data.list;
 		    	if(artistSort) {
@@ -285,7 +285,7 @@ function changeCollection(coll) {
 					sortByArtist();
 				}
    			});
-			$.getJSON('/CollectionService?action=allalbums', function(data) {
+			$.getJSON('/resources/json/AllAlbums.json', function(data) {
 			   allMusic_views[1] = data.list;
 			   albums = data.list;
 			   if(albumSort) {
@@ -293,7 +293,7 @@ function changeCollection(coll) {
 					sortByAlbum();
 				}
     		});
-		   $.getJSON('/CollectionService?action=allsongs', function(data) {
+		   $.getJSON('/resources/json/AllSongs.json', function(data) {
 			   allMusic_views[2] = data.list;
 			   songs = data.list;
 			   if(songSort) {
