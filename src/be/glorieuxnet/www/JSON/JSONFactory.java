@@ -1,11 +1,17 @@
 package be.glorieuxnet.www.JSON;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
+
+import org.hsqldb.lib.FileUtil;
 
 import be.glorieuxnet.www.dao.CollectionDAO;
 import be.glorieuxnet.www.dao.ManagementDAO;
@@ -245,246 +251,6 @@ public class JSONFactory {
 		System.out.println("NoCoverSongs JSON saved");
 	}
 	
-	/**
-	 * Get an Artistlist with All the Artists
-	 * @return Artistlist object
-	 */
-	public static ArtistList getAllArtists() {
-		try {
-			BufferedReader br = new BufferedReader(
-					new FileReader(JSONPATH + "AllArtists.json"));
-			ArtistList artists = new Gson().fromJson(br, ArtistList.class);
-			return artists;
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-			return new ArtistList();
-		}
-	}
-	
-	/**
-	 * Get an AlbumList with all the Albums
-	 * @return AlbumList object
-	 */
-	public static AlbumList getAllAlbums() {
-		try {
-			BufferedReader br = new BufferedReader(
-					new FileReader(JSONPATH + "AllAlbums.json"));
-			AlbumList albums = new Gson().fromJson(br, AlbumList.class);
-			return albums;
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-			return new AlbumList();
-		}
-	}
-	
-	/**
-	 * Get a Songlist with all the songs
-	 * @return Songlist object
-	 */
-	public static SongList getAllSongs() {
-		try {
-			BufferedReader br = new BufferedReader(
-					new FileReader(JSONPATH + "AllSongs.json"));
-			SongList songs = new Gson().fromJson(br, SongList.class);
-			return songs;
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-			return new SongList();
-		}
-	}
-	
-	/**
-	 * Get a Songlist with all the songs from compilation albums
-	 * @return Songlist object
-	 */
-	public static SongList getCompSongs() {
-		try {
-			BufferedReader br = new BufferedReader(
-					new FileReader(JSONPATH + "CompSongs.json"));
-			SongList songs = new Gson().fromJson(br, SongList.class);
-			return songs;
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-			return new SongList();
-		}
-	}
-	
-	/**
-	 * Get an ArtistList object with all the artists from compilation albums
-	 * @return ArtistList object
-	 */
-	public static ArtistList getCompArtists() {
-		try {
-			BufferedReader br = new BufferedReader(
-					new FileReader(JSONPATH + "CompArtists.json"));
-			ArtistList artists = new Gson().fromJson(br, ArtistList.class);
-			return artists;
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-			return new ArtistList();
-		}
-	}
-	
-	/**
-	 * Get an AlbumList object with all the compilation albums
-	 * @return Albumlist object
-	 */
-	public static AlbumList getCompAlbums() {
-		try {
-			BufferedReader br = new BufferedReader(
-					new FileReader(JSONPATH + "CompAlbums.json"));
-			AlbumList albums = new Gson().fromJson(br, AlbumList.class);
-			return albums;
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-			return new AlbumList();
-		}
-	}
-	
-	/**
-	 * Get an ArtistList object with all the identified artists 
-	 * @return Artistlist Object
-	 */
-	public static ArtistList getIdentifiedArtists() {
-		try {
-			BufferedReader br = new BufferedReader(
-					new FileReader(JSONPATH + "IdentifiedArtists.json"));
-			ArtistList artists = new Gson().fromJson(br, ArtistList.class);
-			return artists;
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-			return new ArtistList();
-		}
-	}
-	
-	/**
-	 * Get an AlbumList object with all the identified albums
-	 * @return AlbumList object
-	 */
-	public static AlbumList getIdentifiedAlbums() {
-		try {
-			BufferedReader br = new BufferedReader(
-					new FileReader(JSONPATH + "IdentifiedAlbums.json"));
-			AlbumList albums = new Gson().fromJson(br, AlbumList.class);
-			return albums;
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-			return new AlbumList();
-		}
-	}
-	
-	/**
-	 * Get a Songlist object with all the identified songs 
-	 * @return Songlist object
-	 */
-	public static SongList getIdentifiedSongs() {
-		try {
-			BufferedReader br = new BufferedReader(
-					new FileReader(JSONPATH + "IdentifiedSongs.json"));
-			SongList songs = new Gson().fromJson(br, SongList.class);
-			return songs;
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-			return new SongList();
-		}
-	}
-	
-	/**
-	 * Get an ArtistList object with all the artists that have unidentified objects
-	 * @return ArtistList object
-	 */
-	public static ArtistList getUnIdentifiedArtists() {
-		try {
-			BufferedReader br = new BufferedReader(
-					new FileReader(JSONPATH + "UnIdentifiedArtists.json"));
-			ArtistList artists = new Gson().fromJson(br, ArtistList.class);
-			return artists;
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-			return new ArtistList();
-		}
-	}
-	
-	/**
-	 * Get an AlbumList object with all the undifentified Albums
-	 * @return AlbumList object
-	 */
-	public static AlbumList getUnIdentifiedAlbums() {
-		try {
-			BufferedReader br = new BufferedReader(
-					new FileReader(JSONPATH + "UnIdentifiedAlbums.json"));
-			AlbumList albums = new Gson().fromJson(br, AlbumList.class);
-			return albums;
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-			return new AlbumList();
-		}
-	}
-	
-	/**
-	 * Get a Songlist object with all the unidentified songs
-	 * @return Songlist object
-	 */
-	public static SongList getUnIdentifiedSongs() {
-		try {
-			BufferedReader br = new BufferedReader(
-					new FileReader(JSONPATH + "UnIdentifiedSongs.json"));
-			SongList songs = new Gson().fromJson(br, SongList.class);
-			return songs;
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-			return new SongList();
-		}
-	}
-	
-	/**
-	 * Get an ArtistList object with all the artist that have an album with a missing cover
-	 * @return ArtistList object
-	 */
-	public static ArtistList getNoCoverArtists() {
-		try {
-			BufferedReader br = new BufferedReader(
-					new FileReader(JSONPATH + "NoCoverArtists.json"));
-			ArtistList artists = new Gson().fromJson(br, ArtistList.class);
-			return artists;
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-			return new ArtistList();
-		}
-	}
-	
-	/**
-	 * Get an AlbumList object with all the albums with a missing cover
-	 * @return AlbumList object
-	 */
-	public static AlbumList getNoCoverAlbums() {
-		try {
-			BufferedReader br = new BufferedReader(
-					new FileReader(JSONPATH + "NoCoverAlbums.json"));
-			AlbumList albums = new Gson().fromJson(br, AlbumList.class);
-			return albums;
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-			return new AlbumList();
-		}
-	}
-	
-	/**
-	 * Get a SongList object with all the songs from albums with a missing cover
-	 * @return Songlist Object
-	 */
-	public static SongList getNoCoverSongs() {
-		try {
-			BufferedReader br = new BufferedReader(
-					new FileReader(JSONPATH + "NoCoverSongs.json"));
-			SongList songs = new Gson().fromJson(br, SongList.class);
-			return songs;
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-			return new SongList();
-		}
-	}
-	
 	/** Get an EditAlbum object for a given Album ID
 	 * @param id Album ID
 	 * @return EditAlbum object containing data of found album
@@ -497,9 +263,11 @@ public class JSONFactory {
 	
 	private static void saveJSON (String path, String json) {
 		try {
-			FileWriter writer = new FileWriter(JSONPATH + path);
-			writer.write(json);
-			writer.close();
+			File file = new File(JSONPATH + path); 
+            Writer out = new BufferedWriter(new OutputStreamWriter(
+                    new FileOutputStream(file), "UTF8"));
+            out.write(json);
+            out.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
