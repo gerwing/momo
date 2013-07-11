@@ -328,7 +328,7 @@ function changeCollection(coll) {
 	else if (coll == "identified" && currentView != "identified") {
 		currentView = "identified";
 		if(identified_views.length == 0) {
-			$.getJSON('/ManagementService?action=identifiedartists', function(data) {
+			$.getJSON('/resources/json/IdentifiedArtists.json', function(data) {
 		    	identified_views[0] = data.list;
 				artists = data.list;
 				if(artistSort) {
@@ -336,7 +336,7 @@ function changeCollection(coll) {
 					sortByArtist();
 				}
 		    }); 
-			$.getJSON('/ManagementService?action=identifiedalbums', function(data) {
+			$.getJSON('/resources/json/IdentifiedAlbums.json', function(data) {
 		    	identified_views[1] = data.list;
 				albums = data.list;
 				if(albumSort) {
@@ -344,7 +344,7 @@ function changeCollection(coll) {
 					sortByAlbum();
 				}
 		    });  
-			$.getJSON('/ManagementService?action=identifiedsongs', function(data) {
+			$.getJSON('/resources/json/IdentifiedSongs.json', function(data) {
 		    	identified_views[2] = data.list;
 				songs = data.list;
 				if(songSort) {
@@ -379,7 +379,7 @@ function changeCollection(coll) {
 	else if (coll == "unidentified" && currentView != "unidentified") {
 		currentView = "unidentified";
 		if(unidentified_views.length == 0) {
-			$.getJSON('/ManagementService?action=unidentifiedartists', function(data) {
+			$.getJSON('/resources/json/UnidentifiedArtists.json', function(data) {
 		    	unidentified_views[0] = data.list;
 				artists = data.list;
 				if(artistSort) {
@@ -387,7 +387,7 @@ function changeCollection(coll) {
 					sortByArtist();
 				}
 		    }); 
-			$.getJSON('/ManagementService?action=unidentifiedalbums', function(data) {
+			$.getJSON('/resources/json/UnidentifiedAlbums.json', function(data) {
 		    	unidentified_views[1] = data.list;
 				albums = data.list;
 				if(albumSort) {
@@ -395,7 +395,7 @@ function changeCollection(coll) {
 					sortByAlbum();
 				}
 		    });  
-			$.getJSON('/ManagementService?action=unidentifiedsongs', function(data) {
+			$.getJSON('/resources/json/UnidentifiedSongs.json', function(data) {
 		    	unidentified_views[2] = data.list;
 				songs = data.list;
 				if(songSort) {
@@ -430,7 +430,7 @@ function changeCollection(coll) {
 	else if (coll == "nocover" && currentView != "nocover") {
 		currentView = "nocover";
 		if(nocover_views.length == 0) {
-			$.getJSON('/ManagementService?action=nocoverartists', function(data) {
+			$.getJSON('/resources/json/NoCoverArtists.json', function(data) {
 		    	nocover_views[0] = data.list;
 				artists = data.list;
 				if(artistSort) {
@@ -438,7 +438,7 @@ function changeCollection(coll) {
 					sortByArtist();
 				}
 		    }); 
-			$.getJSON('/ManagementService?action=nocoveralbums', function(data) {
+			$.getJSON('/resources/json/NoCoverAlbums.json', function(data) {
 		    	nocover_views[1] = data.list;
 				albums = data.list;
 				if(albumSort) {
@@ -446,7 +446,7 @@ function changeCollection(coll) {
 					sortByAlbum();
 				}
 		    });  
-			$.getJSON('/ManagementService?action=nocoversongs', function(data) {
+			$.getJSON('/resources/json/NoCoverSongs.json', function(data) {
 		    	nocover_views[2] = data.list;
 				songs = data.list;
 				if(songSort) {

@@ -86,54 +86,6 @@ public class ManagementService extends HttpServlet {
 			response.setContentType("application/json");
 			response.getWriter().write(new Gson().toJson(JSONFactory.getAlbumByID(albumid)));
 		}
-		/* 
-		 * Request JSON files
-		 */
-		else if(action.equals("identifiedartists")) {
-			ArtistList artists = JSONFactory.getIdentifiedArtists();
-			response.setContentType("application/json");
-			response.getWriter().write(new Gson().toJson(artists));
-		}
-		else if(action.equals("unidentifiedartists")) {
-			ArtistList artists = JSONFactory.getUnIdentifiedArtists();
-			response.setContentType("application/json");
-			response.getWriter().write(new Gson().toJson(artists));
-		}
-		else if(action.equals("nocoverartists")) {
-			ArtistList artists = JSONFactory.getNoCoverArtists();
-			response.setContentType("application/json");
-			response.getWriter().write(new Gson().toJson(artists));
-		}
-		else if(action.equals("identifiedalbums")) {
-			AlbumList albums = JSONFactory.getIdentifiedAlbums();
-			response.setContentType("application/json");
-			response.getWriter().write(new Gson().toJson(albums));
-		}
-		else if(action.equals("unidentifiedalbums")) {
-			AlbumList albums = JSONFactory.getUnIdentifiedAlbums();
-			response.setContentType("application/json");
-			response.getWriter().write(new Gson().toJson(albums));
-		}
-		else if(action.equals("nocoveralbums")) {
-			AlbumList albums = JSONFactory.getNoCoverAlbums();
-			response.setContentType("application/json");
-			response.getWriter().write(new Gson().toJson(albums));
-		}
-		else if(action.equals("identifiedsongs")) {
-			SongList songs = JSONFactory.getIdentifiedSongs();
-			response.setContentType("application/json");
-			response.getWriter().write(new Gson().toJson(songs));
-		}
-		else if(action.equals("unidentifiedsongs")) {
-			SongList songs = JSONFactory.getUnIdentifiedSongs();
-			response.setContentType("application/json");
-			response.getWriter().write(new Gson().toJson(songs));
-		}
-		else if(action.equals("nocoversongs")) {
-			SongList songs = JSONFactory.getNoCoverSongs();
-			response.setContentType("application/json");
-			response.getWriter().write(new Gson().toJson(songs));
-		}
 	}
 
 	/**
