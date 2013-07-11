@@ -44,7 +44,7 @@ public class ManagementService extends HttpServlet {
      */
     public ManagementService() {
         super();
-        c = Indexer.getConfiguration();
+        c = Configuration.getConfiguration();
         mgmCollection = new ManagementDAO();
         collection = new CollectionDAO();
         // TODO Auto-generated constructor stub
@@ -148,7 +148,7 @@ public class ManagementService extends HttpServlet {
 		//add configured folder
 		if(action.equals("addFolder")){
 			c.addFolder(new Folder(request.getParameter("folder")));
-			Indexer.setConfiguration(c);
+			Configuration.setConfiguration(c);
 			response.getWriter().write("ok");
 		}
 		//remove configured folder
@@ -156,7 +156,7 @@ public class ManagementService extends HttpServlet {
 			String folder = request.getParameter("folder");
 			//Remove from configuration
 			c.removeFolder(folder);
-			Indexer.setConfiguration(c);
+			Configuration.setConfiguration(c);
 			//Remove songs from database
 			ArrayList<Integer> list = collection.selectAllSongIDsFromFolder(folder);
 			for(int id:list) {
@@ -235,6 +235,7 @@ public class ManagementService extends HttpServlet {
 			JSONFactory.createJSONFromDatabase();
 		    response.getWriter().write("ok");
 		}
+		//edit album cover
 		else if (action.equals("editCover")) {
 			String ID = request.getParameter("ID"); //get ID
 			String link = request.getParameter("url"); //get image url
@@ -263,10 +264,11 @@ public class ManagementService extends HttpServlet {
 			JSONFactory.createJSONFromDatabase();
 			response.getWriter().write("ok");
 		}
+		//edit 'show unidentified' option
 		else if(action.equals("editShowUnIdentified")) {
 			boolean value = request.getParameter("value").equals("true");
 			c.setShowUnIdentified(value);
-			Indexer.setConfiguration(c);
+			Configuration.setConfiguration(c);
 			JSONFactory.createJSONFromDatabase();
 		}
 	}

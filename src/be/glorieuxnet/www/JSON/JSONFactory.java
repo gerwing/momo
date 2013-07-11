@@ -31,7 +31,7 @@ public class JSONFactory {
 	 */
 	public static void createJSONFromDatabase() {
 		//Get Configuration
-		Configuration c = Indexer.getConfiguration();
+		Configuration c = Configuration.getConfiguration();
 		
 		//Create Artists JSONs
 		

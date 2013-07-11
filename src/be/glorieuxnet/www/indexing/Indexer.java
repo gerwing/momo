@@ -34,7 +34,6 @@ public class Indexer {
 	/**
 	 * @param args
 	 */
-	private static String CONFPATH = "resources" + File.separator + "conf.ser";
 	private ArrayList<String> fileList; //final list with all audio files
 	
 	/*
@@ -63,7 +62,7 @@ public class Indexer {
 	 * and tag them if needed/possible
 	 */
 	public void indexAll() {
-		for(Folder s:getConfiguration().getFolders())//then index all files in those folders
+		for(Folder s:Configuration.getConfiguration().getFolders())//then index all files in those folders
 		{
 			indexFiles(s.getFolder()); 
 		}
@@ -243,63 +242,6 @@ public class Indexer {
 			ImageIO.write(cover, file.getCoverImageType(), new File(file.getCoverPath()));
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
-	}
-	
-	/**
-	 * This method returns the currently save Configuration. If no Configuration has been saved it will return a new
-	 * Configuration object
-	 * @return Configuration object
-	 */
-	public static Configuration getConfiguration() {
-		File conffile = new File(CONFPATH);
-		if(conffile.exists()) //load file
-		{
-			try {
-				ObjectInputStream input = new ObjectInputStream(new FileInputStream(conffile));
-				Configuration configuration;
-				configuration = (Configuration) input.readObject();
-				input.close();
-				return configuration;
-			}
-			catch (IOException ie) {
-				System.err.println(ie.getMessage());
-				removeConfiguration();
-				return null;
-			} 
-			catch (ClassNotFoundException e) {
-				System.err.println(e.getMessage());
-				removeConfiguration();
-				return null;
-			}
-		}
-		else {
-			Configuration c = new Configuration();
-			setConfiguration(c);
-			return c;
-		}
-	}
-	
-	/**
-	 * This method will remove the current configuration
-	 */
-	public static void removeConfiguration () {
-		setConfiguration(new Configuration());
-	}
-	
-	/**
-	 * Set the Configuration and save it to disk
-	 * @param configuration New Configuration
-	 */
-	public static void setConfiguration(Configuration configuration) {
-		File conffile = new File(CONFPATH);
-		try {
-			ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(conffile));	
-			output.writeObject(configuration);
-			output.close();
-		}
-		catch (IOException ie) {
-			System.err.println(ie.getMessage());
 		}
 	}
 

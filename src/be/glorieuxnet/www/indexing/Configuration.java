@@ -1,5 +1,11 @@
 package be.glorieuxnet.www.indexing;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -11,18 +17,84 @@ import java.util.ArrayList;
 public class Configuration implements Serializable{
 
 	/**
-	 * 
+	 * Class Variables 
 	 */
 	private static final long serialVersionUID = 1L;
+	private static String CONFPATH = "resources" + File.separator + "conf.ser";
 	private ArrayList<Folder> folders;
 	private boolean showUnIdentified = false;
+	
+	/*
+	 * METHODS FOR LOADING/SAVING CONFIGURATION
+	 */
+	
+	/**
+	 * This method returns the currently save Configuration. If no Configuration has been saved it will return a new
+	 * Configuration object
+	 * @return Configuration object
+	 */
+	public static Configuration getConfiguration() {
+		File conffile = new File(CONFPATH);
+		if(conffile.exists()) //load file
+		{
+			try {
+				ObjectInputStream input = new ObjectInputStream(new FileInputStream(conffile));
+				Configuration configuration;
+				configuration = (Configuration) input.readObject();
+				input.close();
+				return configuration;
+			}
+			catch (IOException ie) {
+				System.err.println(ie.getMessage());
+				removeConfiguration();
+				return null;
+			} 
+			catch (ClassNotFoundException e) {
+				System.err.println(e.getMessage());
+				removeConfiguration();
+				return null;
+			}
+		}
+		else {
+			Configuration c = new Configuration();
+			setConfiguration(c);
+			return c;
+		}
+	}
+	
+	/**
+	 * This method will remove the current configuration
+	 */
+	public static void removeConfiguration () {
+		setConfiguration(new Configuration());
+	}
+	
+	/**
+	 * Set the Configuration and save it to disk
+	 * @param configuration New Configuration
+	 */
+	public static void setConfiguration(Configuration configuration) {
+		File conffile = new File(CONFPATH);
+		try {
+			ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(conffile));	
+			output.writeObject(configuration);
+			output.close();
+		}
+		catch (IOException ie) {
+			System.err.println(ie.getMessage());
+		}
+	}
 	
 	/**
 	 * Construct a new Configuration object
 	 */
-	public Configuration() {
+	private Configuration() {
 		folders = new ArrayList<Folder>();
 	}
+	
+	/*
+	 * CONFIGURATION OBJECT METHODS
+	 */
 	
 	/**
 	 * Add a Folder to the Configuration
