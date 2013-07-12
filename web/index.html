@@ -27,14 +27,14 @@
         <div id=left>
             <h5>VIEW</h5>
             <nav>
-                <p id=artistSortBtn onClick="views.Artists.change()">Artist</p>
-                <p id=albumSortBtn onClick="views.Albums.change()">Album</p>
-                <p id=songSortBtn onClick="views.Songs.change()">Song</p>
+                <p id=artistSortBtn onClick="views.Artists.change(event)">Artist</p>
+                <p id=albumSortBtn onClick="views.Albums.change(event)">Album</p>
+                <p id=songSortBtn onClick="views.Songs.change(event)">Song</p>
             </nav>
             <h5>COLLECTION</h5>
             <nav>
-                <p id=allmusicViewBtn onClick="collections.All.change()">All Music</p>
-                <p id=compViewBtn onClick="collections.Comp.change()">Compilations</p>
+                <p id=allmusicViewBtn onClick="collections.All.change(event)">All Music</p>
+                <p id=compViewBtn onClick="collections.Comp.change(event)">Compilations</p>
             </nav>
         </div>
         <div id=middle>
