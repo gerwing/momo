@@ -172,7 +172,11 @@ var currentData; //copy of current data in use
  
  function editingCover(root, data) {
 	 var url = "https://www.googleapis.com/customsearch/v1?key=AIzaSyCNqU4PPechS6kPNytAA1JGI4gJspXnWK4&cx=007383358878722163893:qavasfbitxe&searchType=image&q=";
-	 var query = data.title() + " " + root.name();
+	 //determine which information is available -> Artist vs Album view
+	 if(root.name != undefined)
+	 	var query = data.title() + " " + root.name();
+	 else 
+	 	var query = data.title() + " " + data.albumArtist();
 	 editCoverAlbumID = data.ID();
 	 $.getJSON(url + query, function(data) {
 	     var imgHtml = "<h3>Edit Cover</h3><hr><table><tr>";
