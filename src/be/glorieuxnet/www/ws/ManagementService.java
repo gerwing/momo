@@ -15,12 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.jaudiotagger.audio.AudioFile;
 
 import com.google.gson.Gson;
-import be.glorieuxnet.www.JSON.AlbumList;
-import be.glorieuxnet.www.JSON.ArtistList;
 import be.glorieuxnet.www.JSON.EditAlbum;
 import be.glorieuxnet.www.JSON.JSONFactory;
 import be.glorieuxnet.www.JSON.Song;
-import be.glorieuxnet.www.JSON.SongList;
 import be.glorieuxnet.www.JSON.TreeFolder;
 import be.glorieuxnet.www.dao.CollectionDAO;
 import be.glorieuxnet.www.dao.ManagementDAO;

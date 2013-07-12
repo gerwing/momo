@@ -5,7 +5,6 @@ var query2; //delayed query
 var viewModel_artist;
 var viewModel_album;
 var viewModel_song;
-var currentView; //either 'all' , 'comp' or 'playlist'
 var artists;
 var albums;
 var songs;
@@ -20,62 +19,109 @@ var currentPlaylist = new Array();
 var shuffle = false; //shuffle enabled or not 
 var shuffleIndexes = new Array();
 
+//Initialize views, collections and current
+var views = new Object();
+var collections = new Object();
+var currentView;
+var currentCollection;
+var currentData; //copy of current data in use
+
+//Setup View object
+var View = function View(data) {
+	this.value = data;
+}
+//Define viewmodel
+View.prototype.viewModel = ko.mapping.fromJS({list:[]});
+//Define function for changing view
+View.prototype.change = function(){
+	//Only if different from current view
+	if(currentView != this) {
+		//delete all viewModels
+		currentView.viewModel.list.removeAll();
+		currentView = this;
+		//load new view
+		$.getJSON('/resources/json/'+ currentCollection.value + currentView.value +'.json', function(data) {
+	   		currentData = data.list;
+	   		if(query() == "" || query() == null) {
+				ko.mapping.fromJS(data, currentView.viewModel);
+				setCurrentPlayList();
+			}
+	   		else searching(query());
+  	 	});
+	}
+};
+
+//Setup Collection object
+var Collection = function Collection(data) {
+	this.value = data;
+}
+//Define function for changing Collection
+Collection.prototype.change = function(){
+	//Only if different from current view
+	if(currentCollection != this) {
+		//change current Collection
+		currentCollection = this;
+		//load new view
+		$.getJSON('/resources/json/'+ currentCollection.value + currentView.value +'.json', function(data) {
+	   		currentData = data.list;
+	   		if(query() == "" || query() == null) {
+				ko.mapping.fromJS(data, currentView.viewModel);
+				setCurrentPlayList();
+			}
+	   		else searching(query());
+  	 	});
+	}
+};
+
+//add all views
+views.Artists = new View("Artists");
+views.Albums = new View("Albums");
+views.Songs = new View("Songs");
+
+//add all collections
+collections.All = new Collection("All");
+collections.Comp = new Collection("Comp");
+
+//Set initial current view and collection
+currentView = views.Artists; //either 'Song' 'Artists' or 'Albums'
+currentCollection = collections.All; //either 'All' or 'Comp'
+
+/*
+ * Initial Operations
+ */
 $(document).ready(function(){
 	
 	//hide middle
 	$("#middle").hide();
 	
+	//initialize player
 	player = new MediaElementPlayer('#audioPlayer',{success: function (mediaElement, domObject) { 
         mediaElement.addEventListener('ended', playNext, false);
     }});
 		
-   $.getJSON('/resources/json/AllArtists.json', function(data) {
-	   allMusic_views[0] = data.list;
-	   artists = data.list;
-	   viewModel_artist = ko.mapping.fromJS(data);
-	   ko.applyBindings(viewModel_artist, $("#byartist")[0]);
+	//connect views with viewmodels
+	ko.applyBindings(views.Artists.viewModel, $("#byartist")[0]);
+	
+	//load data
+   	$.getJSON('/resources/json/'+ currentCollection.value + currentView.value +'.json', function(data) {
+	   currentData = data.list;
+	   ko.mapping.fromJS(data, currentView.viewModel);
 	   $("#middle").show();
-   }).done(function(){ //set current playlist
-		   for(var x in viewModel_artist.list()) {
-				for(var y in viewModel_artist.list()[x].albums()) {
-					for( var z in viewModel_artist.list()[x].albums()[y].songs()) {
-						var s = viewModel_artist.list()[x].albums()[y].songs()[z];
-						currentPlaylist.push({artist:s.artist(), title:s.title(), requestPath:s.requestPath(),
-											cover_filepath:viewModel_artist.list()[x].albums()[y].cover_filepath()});
-					}
-				}
-		   }
+  	 }).done(function(){ //set current playlist
+		   setCurrentPlayList();
 	   });
    
-   //set Current view
-   currentView = "all";
+   	//set selected buttons
+   	$("#artistSortBtn").addClass("btnSelected");
+   	$("#allmusicViewBtn").addClass("btnSelected");
    
-   //set selected buttons
-   $("#artistSortBtn").addClass("btnSelected");
-   $("#allmusicViewBtn").addClass("btnSelected");
-   
-   //set search function
-   query = ko.observable('');
-   query2 = ko.computed(function() {
-    return query();
-	}).extend({ throttle: 400 });
-   query2.subscribe(searching);
-   ko.applyBindings(query, $("#right")[0]);
-   
-   //set Album viewmodel
-   $.getJSON('/resources/json/AllAlbums.json', function(data) {
-	   allMusic_views[1] = data.list;
-	   albums = data.list;
-	   viewModel_album = ko.mapping.fromJS({list:[]});
-	   ko.applyBindings(viewModel_album, $("#byalbum")[0]);
-    });
-   //set Song viewmodel
-   $.getJSON('/resources/json/AllSongs.json', function(data) {
-	   allMusic_views[2] = data.list;
-	   songs = data.list;
-	   viewModel_song = ko.mapping.fromJS({list:[]});
-	   ko.applyBindings(viewModel_song, $("#bysong")[0]);
-    });
+  	//set search function
+  	query = ko.observable('');
+   	query2 = ko.computed(function() {
+    	return query();
+		}).extend({ throttle: 400 });
+   	query2.subscribe(searching);
+   	ko.applyBindings(query, $("#right")[0]);
    
  });
 
@@ -286,8 +332,9 @@ function playNext(){
  * Collection functions
  */
 function changeCollection(coll) {
-  	if(coll == "all" && currentView != "all") {
-		currentView = "all";
+	//Only proceed if the selected collection is different from the current one
+  	if(currentCollection.value != coll) {
+		currentCollection = coll;
 		artists = allMusic_views[0];
 		albums = allMusic_views[1];
 		songs = allMusic_views[2];
@@ -359,9 +406,14 @@ function changeCollection(coll) {
 /*
 * Sort Functions
 */
-function sortByArtist() {
-  	if(!artistSort) {
-		$("#artistLoad").show();
+function changeView(view) {
+  	if(currentView != view) {
+  		if(view == 'Artist')
+			$("#artistLoad").show();
+		else if(view == 'Album')
+			$("#albumLoad").show();
+		else if(view == 'Song')
+			$("#songLoad").show();
 		artistSort = true;
 		albumSort = false;
 		songSort = false;

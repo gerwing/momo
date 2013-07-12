@@ -1,23 +1,15 @@
 package be.glorieuxnet.www.JSON;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 
-import org.hsqldb.lib.FileUtil;
-
 import be.glorieuxnet.www.dao.CollectionDAO;
 import be.glorieuxnet.www.dao.ManagementDAO;
 import be.glorieuxnet.www.indexing.Configuration;
-import be.glorieuxnet.www.indexing.Indexer;
-
 import com.google.gson.Gson;
 
 /**
