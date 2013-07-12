@@ -36,7 +36,7 @@ View.prototype.viewModel = ko.mapping.fromJS({list:[]});
 View.prototype.change = function(){
 	//Only if different from current view
 	if(currentView != this) {
-		//delete all viewModels
+		//delete current viewModel data and set new current view
 		currentView.viewModel.list.removeAll();
 		currentView = this;
 		//load new view
@@ -122,6 +122,9 @@ $(document).ready(function(){
 		}).extend({ throttle: 400 });
    	query2.subscribe(searching);
    	ko.applyBindings(query, $("#right")[0]);
+   
+    //ko.applyBindings(views.Albums.viewModel, $("#byalbum")[0]);
+    //ko.applyBindings(views.Songs.viewModel, $("#bysong")[0]);
    
  });
 
@@ -270,33 +273,33 @@ function playNext(){
  
  function setCurrentPlayList() {
 	currentPlaylist.length = 0;
- 	if(artistSort) {
+ 	if(currentView == views.Artists) {
 		//change currentPlaylist
-		for(var x in viewModel_artist.list()) {
-			for(var y in viewModel_artist.list()[x].albums()) {
-				for( var z in viewModel_artist.list()[x].albums()[y].songs()) {
-					var s = viewModel_artist.list()[x].albums()[y].songs()[z];
+		for(var x in currentView.viewModel.list()) {
+			for(var y in currentView.viewModel.list()[x].albums()) {
+				for( var z in currentView.viewModel.list()[x].albums()[y].songs()) {
+					var s = currentView.viewModel.list()[x].albums()[y].songs()[z];
 					currentPlaylist.push({artist:s.artist(), title:s.title(), requestPath:s.requestPath(),
-										cover_filepath:viewModel_artist.list()[x].albums()[y].cover_filepath()});
+										cover_filepath:currentView.viewModel.list()[x].albums()[y].cover_filepath()});
 				}
 			}
 		}
 	}
-	else if(albumSort) {
+	else if(currentView == views.Albums) {
 		//change currentPlaylist
-		for(var x in viewModel_album.list()) {
-			for( var y in viewModel_album.list()[x].songs()) {
-				var s = viewModel_album.list()[x].songs()[y];
+		for(var x in currentView.viewModel.list()) {
+			for( var y in currentView.viewModel.list()[x].songs()) {
+				var s = currentView.viewModel.list()[x].songs()[y];
 				currentPlaylist.push({artist:s.artist(), title:s.title(), requestPath:s.requestPath(),
-									cover_filepath:viewModel_album.list()[x].cover_filepath()});
+									cover_filepath:currentView.viewModel.list()[x].cover_filepath()});
 			}
 				
 		}
 	}
-	else if(songSort) {
+	else if(currentView == views.Songs) {
 		//change currentPlaylist
-		for(var x in viewModel_song.list()) {
-				var s = viewModel_song.list()[x];
+		for(var x in currentView.viewModel.list()) {
+				var s = currentView.viewModel.list()[x];
 				currentPlaylist.push({artist:s.artist(), title:s.title(), requestPath:s.requestPath()});
 		}
 	}
@@ -478,10 +481,14 @@ function changeView(view) {
    * Search Function
    */
    var searching = function(value) {
-	 if(artistSort) {
-  	 // remove all the current artists
-		viewModel_artist.list.removeAll();
-		var results = new Array();
+     //remove data in viewmodel
+   	 currentView.viewModel.list.removeAll();
+	 //create result array
+	 var results = new Array();
+	 
+	 if(currentView == views.Artists) {
+	 	//set artists array
+	 	var artists = currentData;
 		//search for matching artists, albums, songs
 		for(var x in artists) {
 			if(artists[x].name.toLowerCase().indexOf(value.toLowerCase()) >= 0) {
@@ -515,13 +522,11 @@ function changeView(view) {
 				if(count > 0) results.push(artist);	
 			}
 		}
-		ko.mapping.fromJS({list:results}, viewModel_artist);
 	 }
-	 else if (albumSort) {
-  	 	// remove all the current albums
-		viewModel_album.list.removeAll();
-		var results = new Array();
-		//search for matching albums
+	 else if (currentView == views.Albums) {
+	 	//set albums array
+	 	var albums = currentData;
+		//search for matching albums, songs
 		for(var x in albums) {
 			if(albums[x].title.toLowerCase().indexOf(value.toLowerCase()) >= 0 || 
 				albums[x].albumArtist.toLowerCase().indexOf(value.toLowerCase()) >= 0) {
@@ -541,12 +546,10 @@ function changeView(view) {
 				if(count > 0) results.push(album);	
 			}
 		}
-		ko.mapping.fromJS({list:results}, viewModel_album);
 	 }
-	 else if (songSort) {
-	 	// remove all the current songs
-		viewModel_song.list.removeAll();
-		var results = new Array();
+	 else if (currentView == views.Songs) {
+	 	//set songs array
+	 	var songs = currentData;
 		//search for matching albums
 		for(var x in songs) {
 			if(songs[x].title.toLowerCase().indexOf(value.toLowerCase()) >= 0 || 
@@ -555,7 +558,7 @@ function changeView(view) {
 				 results.push(songs[x]);
 			}
 		}
-		ko.mapping.fromJS({list:results}, viewModel_song);
 	 }
+	 ko.mapping.fromJS({list:results}, currentView.viewModel);
 	 setCurrentPlayList();
   };
