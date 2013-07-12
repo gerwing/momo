@@ -112,8 +112,8 @@ $(document).ready(function(){
 	   });
    
    	//set selected buttons
-   	$("#artistSortBtn").addClass("btnSelected");
-   	$("#allmusicViewBtn").addClass("btnSelected");
+   	$($("#viewNav")[0].firstElementChild).addClass("btnSelected");
+    $($("#collectionNav")[0].firstElementChild).addClass("btnSelected");
    
   	//set search function
   	query = ko.observable('');
