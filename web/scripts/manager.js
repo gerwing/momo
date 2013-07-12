@@ -100,7 +100,7 @@ var currentData; //copy of current data in use
 	player = new MediaElementPlayer('#audioPlayer');
 	
 	//load data
-   	$.getJSON('/resources/json/AllArtists.json', function(data) {
+   	$.getJSON('/resources/json/'+ currentCollection.value + currentView.value +'.json', function(data) {
    	   currentData = data.list;
 	   ko.mapping.fromJS(data, views.Artists.viewModel);
 	   bindOverlays(); //bind edit button overlays
@@ -210,6 +210,7 @@ var currentData; //copy of current data in use
  function updateView() {
 	currentView.change("update");
  }
+ 
  /*
   * Configuration Functions
   */

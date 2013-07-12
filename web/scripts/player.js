@@ -2,6 +2,7 @@
 var player;
 var query; //search query
 var query2; //delayed query
+var results;
 
 var currentSong;
 var currentIndex;
@@ -336,7 +337,7 @@ function playNext(){
      //remove data in viewmodel
    	 currentView.viewModel.list.removeAll();
 	 //create result array
-	 var results = new Array();
+	 results = new Array();
 	 
 	 if(currentView == views.Artists) {
 	 	//set artists array
